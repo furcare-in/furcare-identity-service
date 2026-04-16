@@ -1,0 +1,12 @@
+{
+  "id": "7ce73575-948f-4466-8d15-3d687e35dcee",
+  "title": "Follow-up Call",
+  "body": "<h2>Follow up call</h2><p><br></p><p>{User FullName} called {Client.FullName} today to followup</p><p><br></p><p>Purpose:</p><p><br></p><p>Frequency:</p><p><br></p><p>Topics Discussed:</p><p><br></p><p>Benefits:</p>",
+  "category": "Client_And_Communications",
+  "businessBranchId": "SYSTEM_RESTORED",
+  "staffId": "SYSTEM_RESTORED",
+  "active": true,
+  "animalClassId": "",
+  "createdAt": "2026-01-13T09:36:50.552Z",
+  "updatedAt": "2026-01-13T09:36:50.552Z"
+}

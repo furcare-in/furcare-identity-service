@@ -1,0 +1,22 @@
+model StaffSchedule {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  groupId         String          @db.ObjectId
+  departmentId    String?         @db.ObjectId
+  date            String
+  startTime       String
+  endTime         String
+  appointmentType AppointmentType
+  recurrence      RecurrenceType
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  active          Boolean         @default(true)
+
+  Group   Group?  @relation(fields: [groupId], references: [id])
+  Staff   Staff?  @relation(fields: [staffId], references: [id])
+  staffId String? @db.ObjectId
+
+  @@index([date, active, startTime])
+  @@index([staffId, date, active, startTime])
+  @@index([groupId, date, active, startTime])
+  @@map("staff_schedules")
+}

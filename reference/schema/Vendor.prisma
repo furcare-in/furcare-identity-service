@@ -1,0 +1,13 @@
+model Vendor {
+  id Int @id @default(autoincrement())
+
+  name           String
+  businessUnitId Int
+  businessUnit   BusinessUnit @relation(fields: [businessUnitId], references: [id])
+  items          Item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("vendors")
+}

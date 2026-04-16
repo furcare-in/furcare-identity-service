@@ -1,0 +1,88 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SterilizationStatus {
+  intact
+  sterilized
+  unsure
+}
+
+enum AnimalGender {
+  male
+  female
+}
+
+enum AppointmentType {
+  Regular
+  Virtual
+}
+
+enum RecurrenceType {
+  DoesNotRepeat @map("Does not repeat")
+  EveryWeekday  @map("Every weekday")
+}
+
+enum ContentCategory {
+  Anaesthesia_And_Surgery
+  Client_And_Communications
+  Client_Instructions_Medical
+  In_House_Dx
+  Personal_Space
+  Personal_content
+}
+
+enum DocumentTemplateType {
+  Appointment
+  Client_And_Patient
+  Order
+  Vaccination
+  Prescription
+  Marketing
+}
+
+enum DocumentTemplateLanguage {
+  english
+  hindi
+}
+
+enum ReportType {
+  appointments
+  admin
+  client_and_patient
+  inventory
+  communication
+  visits
+  leads
+}
+
+enum ReportFrequency {
+  day
+  week
+  month
+}
+
+enum Action {
+  create
+  read
+  update
+  delete
+  write
+}
+
+enum Resource {
+  document
+  animalClass
+  diagnosticIntegration
+}
+
+enum AccessLevel {
+  businessUnit
+  businessBranch
+}

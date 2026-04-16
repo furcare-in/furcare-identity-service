@@ -1,0 +1,15 @@
+model LeadType {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  
+  name        String
+  sources     String[]
+  description String?
+  
+  businessBranchId String @db.ObjectId
+  businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("lead_types")
+}

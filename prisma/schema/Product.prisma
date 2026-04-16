@@ -1,0 +1,59 @@
+model Product {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name        String
+  description String?
+  sku         String?
+  category    String?
+  
+  costPrice   Float?
+  sellingPrice Float
+
+  quantity    Int @default(0)
+  minQuantity Int? @default(0)
+
+  serialNumber String?
+  lotNumber    String?
+  expiryDate   DateTime?
+
+  // Pharmaceutical-specific fields
+  strength         Float? // e.g., 250
+  unit             String? // e.g., "mg"
+  dispensableUnit  String? // e.g., "mg"
+  doseUnit         String? // e.g., "mg"
+  standardDose     String? // e.g., "4-4"
+  usageInstructions String?
+
+  dosings            Json?
+  breedSensitivities Json?
+
+  // Denormalized dose metadata (from first dosing rule) for easy querying
+  doseMinPerKg       Float?
+  doseMaxPerKg       Float?
+  
+  // OpenFDA fields
+  variants             Json?
+  genericName          String?
+  hasClinicalReference Boolean? @default(false)
+  clinicalRulesApplied Boolean? @default(false)
+  
+  // Vaccine-specific fields
+  vaccineComponents String? // Comma-separated list
+  
+  // Location/Storage
+  location String?
+
+  supplierId   String?   @db.ObjectId
+  supplier     Supplier? @relation(fields: [supplierId], references: [id])
+
+  businessBranchId String         @db.ObjectId
+  businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
+  
+  active Boolean @default(true)
+  vaccinationStatuses VaccinationStatus[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
+}

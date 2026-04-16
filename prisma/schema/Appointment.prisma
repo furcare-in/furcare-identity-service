@@ -1,0 +1,20 @@
+model Appointment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  clientId         String
+  name             String
+  appointmentType  String
+  appointmentDate  String
+  appointmentTime  String
+  doctorId         String?
+  comment          String?
+  branchId         String
+  departmentId     String?
+  petId            String[]
+  petNames         String[]
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("appointments")
+}

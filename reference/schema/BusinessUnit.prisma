@@ -1,0 +1,42 @@
+model BusinessUnit {
+  id Int @id @default(autoincrement())
+
+  name     String
+  type     String
+  branches BusinessBranch[]
+  roles    Role[]
+  staff    Staff[]
+  vendors  Vendor[]
+
+  createdAt            DateTime                     @default(now())
+  updatedAt            DateTime                     @updatedAt
+  availableServices    BusinessUnitsToServices[]
+  availableDepartments BusinessUnitsToDepartments[]
+  Report               Report[]
+
+  @@map("business_units")
+}
+
+model BusinessUnitsToServices {
+  id Int @id @default(autoincrement())
+
+  businessUnitId Int
+  serviceId      Int
+
+  businessUnit BusinessUnit @relation(fields: [businessUnitId], references: [id])
+  service      Service      @relation(fields: [serviceId], references: [id])
+
+  @@unique([businessUnitId, serviceId])
+}
+
+model BusinessUnitsToDepartments {
+  id Int @id @default(autoincrement())
+
+  businessUnitId Int
+  departmentId   Int
+
+  businessUnit BusinessUnit @relation(fields: [businessUnitId], references: [id])
+  department   Department   @relation(fields: [departmentId], references: [id])
+
+  @@unique([businessUnitId, departmentId])
+}

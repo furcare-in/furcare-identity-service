@@ -1,0 +1,14 @@
+model AnimalClass {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  breeds         String[]
+  availableAt    BranchesToAnimalClasses[]
+  contents       Content[]
+  registeredPets Pet[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("animal_classes")
+}

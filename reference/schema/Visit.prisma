@@ -1,0 +1,43 @@
+model Visit {
+  id Int @id @default(autoincrement())
+
+  date   DateTime
+  reason String
+  notes  String?
+  status String   @default("Scheduled") // Scheduled, In Progress, Completed, Cancelled
+
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
+
+  petId Int
+  pet   Pet @relation(fields: [petId], references: [id])
+
+  moduleId Int? // Optional reference to a medical record or other module
+
+  // Medical Record Details
+  author          String?
+  markdown        String?
+  selectedOptions Json?
+  vaccination     Json?
+  prescriptions   Json?
+  assessment      Json?
+  vitals          Json?
+  documents       Json?
+  diagnostics     Json?
+
+  // Payment Details
+  paymentStatus   String   @default("Pending") // Pending, Completed, Failed
+  paymentMethod   String?
+  totalAmount     Float?
+  oneTimeDiscount Float?
+  invoiceNumber   String?
+  paymentDate     DateTime?
+
+  businessBranchId Int
+  businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("visits")
+}

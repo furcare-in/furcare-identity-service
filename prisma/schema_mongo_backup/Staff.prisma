@@ -1,0 +1,39 @@
+model Staff {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name                String
+  phone               String          @unique
+  email               String          @unique
+  password            String
+  otp                 String?
+  otpGeneratedAt      DateTime?
+  otpExpiresAt        DateTime?
+  roles               StaffToRoles[]
+  shiftStartTime      String?
+  shiftEndTime        String?
+  businessUnitId      String?         @db.ObjectId
+  businessBranchId    String?         @db.ObjectId
+  businessUnit        BusinessUnit?   @relation(fields: [businessUnitId], references: [id])
+  businessBranch      BusinessBranch? @relation(fields: [businessBranchId], references: [id])
+  groups              GroupsToStaff[]
+  branches            StaffToBranches[]
+  active              Boolean         @default(true)
+  schedules           StaffSchedule[]
+  onboardingCompleted Boolean         @default(false)
+  customPermissions   Json?           @default("[]")
+  portalPosts         PortalPost[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("staffs")
+}
+
+model StaffToRoles {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  staffId      String  @db.ObjectId
+  roleId       String? @db.ObjectId
+  staffDetails Staff   @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  roleDetails  Role?   @relation(fields: [roleId], references: [id], onDelete: SetNull)
+}

@@ -1,0 +1,23 @@
+model Service {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String?
+  duration     Int?
+  price        Float?
+  isCustom     Boolean  @default(false)
+  branchId     String?  @db.ObjectId
+  departmentId String   @db.ObjectId
+
+  department   Department @relation(fields: [departmentId], references: [id])
+  roomServices RoomService[]
+
+  availableAtBranches ServicesToBranches[]
+  availableAtUnits    BusinessUnitsToServices[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([departmentId])
+  @@index([branchId])
+  @@map("services")
+}

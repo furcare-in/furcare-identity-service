@@ -1,0 +1,23 @@
+model Pet {
+  id Int @id @default(autoincrement())
+
+  name                String
+  gender              AnimalGender
+  dob                 DateTime
+  weight              Float
+  animalClassId       Int
+  breed               String
+  color               String
+  sterilizationStatus SterilizationStatus
+  patientType         String
+  clientId            Int
+  active              Boolean             @default(true)
+
+  animalClass AnimalClass @relation(fields: [animalClassId], references: [id])
+  client      Client      @relation(fields: [clientId], references: [id])
+  visits      Visit[]
+  vaccinations VaccinationStatus[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

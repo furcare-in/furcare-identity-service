@@ -1,0 +1,13 @@
+model Department {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  availableAtBusinessBranches DepartmentsToBranches[]
+  availableAtBusinessUnits    BusinessUnitsToDepartments[]
+  appointmentSlots            AppointmentSlot[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("departments")
+}

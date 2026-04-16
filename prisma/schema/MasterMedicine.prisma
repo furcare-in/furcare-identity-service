@@ -1,0 +1,70 @@
+model MasterMedicine {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  // ─── IDENTITY ──────────────────────────────────────────
+  name                 String                    // Brand name
+  genericName          String?                   // Generic / chemical name
+  genericNameLower     String?                   // Lowercased, salt-stripped for search
+  activeIngredient     String?
+  synonyms             String[]                  // All known brand names, trade names
+
+  // ─── CLASSIFICATION ────────────────────────────────────
+  drugClass            String?                   // "NSAID", "Antibiotic", "Sedative", etc.
+
+  // ─── FORMULATION ───────────────────────────────────────
+  form                 String?                   // Tablet, Capsule, Injection, etc.
+  strength             String?                   // "250", "0.02%"
+  strengthValue        Float?                    // Parsed numeric: 250
+  strengthUnit         String?                   // "mg", "%"
+  route                Json?                     // ["Oral (PO)", "Topical", ...]
+  dispensableUnit      String?
+  forms                Json?                     // Array of form/strength/brand combos
+
+  // ─── CLINICAL INTELLIGENCE ─────────────────────────────
+  dosingRules              Json?                 // Species-specific dosing rules
+  breedSensitivities       Json?                 // Breed-specific warnings
+  interactionWarnings      Json?                 // Drug-drug interaction alerts
+  generalUsageInstructions String?
+  contraindications        String?
+  adverseReactions         String?
+  dosageAndAdmin           String?
+  indications              String?
+
+  // ─── SCIENTIFIC / REFERENCE ────────────────────────────
+  apiData              Json?                     // RxNorm, DailyMed, PubChem, ChEMBL data
+  pubchemCid           Int?
+  molecularFormula     String?
+  rxcui                String?
+
+  // ─── PROVENANCE ────────────────────────────────────────
+  sourceDocuments      String[]                  // ["Products.txt", "API:RxNorm", ...]
+  fdaApproved          Boolean?   @default(false)
+  isVeterinarySpecific Boolean?   @default(false)
+  species              String[]                  // ["All Species", "Canine", "Feline"]
+  regionalBrands       Json?                     // { "US": ["Rimadyl"], "UK": ["Zenecarp"] }
+  applNo               String?                   // FDA application number
+  sponsorName          String?                   // Manufacturer
+
+  // ─── EVOLUTION TRACKING ────────────────────────────────
+  learnedFromClinics   Boolean    @default(false)
+  learnedAt            DateTime?
+  learnedFromSource    String?                   // "manual_entry", "openfda_merge", "inventory_save"
+  searchHitCount       Int        @default(0)    // Popularity counter for ranking
+  lastSearchedAt       DateTime?
+  lastVerifiedAt       DateTime?                 // When data was last confirmed accurate
+
+  // ─── TIMESTAMPS ────────────────────────────────────────
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+
+  // ─── RELATIONS ─────────────────────────────────────────
+  prescriptionInsights PrescriptionInsight[]
+  observations         MedicineObservation[]
+
+  // ─── INDEXES ───────────────────────────────────────────
+  @@index([genericNameLower])
+  @@index([name])
+  @@index([activeIngredient])
+  @@index([synonyms])
+  @@map("master_medicines")
+}

@@ -1,0 +1,86 @@
+model BusinessBranch {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  businessUnitId         String                    @db.ObjectId
+  name                   String
+  type                   String
+  practice               String
+  currency               String
+  addressLine1           String
+  addressLine2           String
+  country                String
+  state                  String
+  city                   String
+  postalCode             String
+  services               ServicesToBranches[]
+  departments            DepartmentsToBranches[]
+  animalClasses          BranchesToAnimalClasses[]
+  appointmentSlots       AppointmentSlot[]
+  diagnosticIntegrations DiagnosticIntegration[]
+  access                 Role[]
+  staff                  Staff[]
+  staffAssignments       StaffToBranches[]
+  reports                Report[]
+  active                 Boolean                   @default(true)
+  supplies               Supply[]
+  products               Product[]
+  suppliers              Supplier[]
+  visits                 Visit[]
+  clients                Client[]
+  businessUnit           BusinessUnit              @relation(fields: [businessUnitId], references: [id])
+  contentLibrary         Content[]
+  documentTemplates      DocumentTemplate[]
+  leadTypes              LeadType[]
+  portalPosts            PortalPost[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("business_branches")
+}
+
+model ServicesToBranches {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  serviceId      String         @db.ObjectId
+  branchId       String         @db.ObjectId
+  basePrice      Int
+  active         Boolean        @default(true)
+  serviceDetails Service        @relation(fields: [serviceId], references: [id])
+  branchDetails  BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([serviceId, branchId])
+  @@map("services_to_branches")
+}
+
+model DepartmentsToBranches {
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  departmentId      String         @db.ObjectId
+  branchId          String         @db.ObjectId
+  active            Boolean        @default(true)
+  departmentDetails Department     @relation(fields: [departmentId], references: [id])
+  branchDetails     BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([departmentId, branchId])
+  @@map("departments_to_branches")
+}
+
+model BranchesToAnimalClasses {
+  id                 String         @id @default(auto()) @map("_id") @db.ObjectId
+  branchId           String         @db.ObjectId
+  animalClassId      String?        @db.ObjectId
+  branchDetails      BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  animalClassDetails AnimalClass?   @relation(fields: [animalClassId], references: [id], onDelete: SetNull)
+  active             Boolean        @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([branchId, animalClassId])
+  @@map("animal_classes_to_branches")
+}

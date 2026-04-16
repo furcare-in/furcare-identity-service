@@ -1,0 +1,33 @@
+model VaccinationStatus {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  petId             String   @db.ObjectId
+  pet               Pet      @relation(fields: [petId], references: [id])
+  
+  // Link to Inventory (Product)
+  productId         String?  @db.ObjectId
+  product           Product? @relation(fields: [productId], references: [id])
+  
+  // Snapshot Data (Preserves history even if Product changes)
+  vaccineName       String
+  isCore            Boolean  @default(false)
+  vaccineType       String?  // e.g., "MKL", "Inactivated"
+  
+  // Administration
+  administeredDate  DateTime?
+  nextDueDate       DateTime?
+  status            String   @default("On Track") // "On Track", "Due Soon", "Past Due"
+  
+  // Traceability
+  visitId           String?  @db.ObjectId   // Link to clinical event
+  isManuallyEntered Boolean  @default(false)
+  
+  businessBranchId  String   @db.ObjectId
+  businessBranch    BusinessBranch @relation(fields: [businessBranchId], references: [id])
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("vaccination_status")
+  @@index([petId])
+  @@index([nextDueDate])
+}

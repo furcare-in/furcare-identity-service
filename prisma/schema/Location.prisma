@@ -1,0 +1,26 @@
+model Location {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  availableAtBusinessBranches LocationsToBranches[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("locations")
+}
+
+model LocationsToBranches {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  locationId String @db.ObjectId
+  branchId   String @db.ObjectId
+
+  locationDetails Location       @relation(fields: [locationId], references: [id])
+  branchDetails   BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([locationId, branchId])
+  @@map("locations_to_branches")
+}

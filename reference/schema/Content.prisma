@@ -1,0 +1,20 @@
+model Content {
+  id                  Int                  @id @default(autoincrement())
+  category            ContentCategory
+  gender              AnimalGender?
+  animalClassId       Int?
+  animalBreed         String?
+  ageRange            Int?
+  healthConcerns      String[]
+  sterilizationStatus SterilizationStatus?
+  title               String               @default("")
+  body                String
+  businessBranchId    Int?
+  active              Boolean              @default(true)
+
+  animalClass    AnimalClass?   @relation(fields: [animalClassId], references: [id])
+  businessBranch BusinessBranch? @relation(fields: [businessBranchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

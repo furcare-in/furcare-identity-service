@@ -1,0 +1,13 @@
+model WhatsAppMessage {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  conversationId String   @db.ObjectId
+  waMessageId    String?  // WhatsApp's own message ID (wamid...)
+  direction      String   // "inbound" | "outbound"
+  body           String
+  type           String   @default("text") // "text" | "image" | "audio" | "video" | "document"
+  status         String   @default("sent") // "sent" | "delivered" | "read" | "failed"
+  mediaId        String?  // Meta media ID for image/audio/video/document messages
+  timestamp      DateTime @default(now())
+
+  conversation WhatsAppConversation @relation(fields: [conversationId], references: [id])
+}

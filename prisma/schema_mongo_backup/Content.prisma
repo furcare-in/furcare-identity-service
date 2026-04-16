@@ -1,0 +1,29 @@
+enum ContentCategory {
+  Anaesthesia_And_Surgery
+  Client_And_Communications
+  Client_Instructions_Medical
+  In_House_Dx
+  Personal_Space
+  Personal_content
+}
+
+model Content {
+  id                  String               @id @default(auto()) @map("_id") @db.ObjectId
+  category            ContentCategory
+  gender              AnimalGender?
+  animalClassId       String?              @db.ObjectId
+  animalBreed         String?
+  ageRange            Int?
+  healthConcerns      String[]
+  sterilizationStatus SterilizationStatus?
+  title               String               @default("")
+  body                String
+  businessBranchId    String               @db.ObjectId
+  active              Boolean              @default(true)
+
+  animalClass    AnimalClass?   @relation(fields: [animalClassId], references: [id])
+  businessBranch BusinessBranch @relation(fields: [businessBranchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

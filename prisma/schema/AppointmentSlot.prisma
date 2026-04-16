@@ -1,0 +1,18 @@
+model AppointmentSlot {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name         String
+  description  String?
+  departmentId String   @db.ObjectId
+  branchId     String   @db.ObjectId
+  reasons      String[]
+  active       Boolean  @default(true)
+
+  branch     BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  department Department     @relation(fields: [departmentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("appointment_slots")
+}

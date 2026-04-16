@@ -1,0 +1,33 @@
+enum DocumentTemplateType {
+  Appointment
+  Client_And_Patient
+  Order
+  Vaccination
+  Prescription
+  Marketing
+}
+
+enum DocumentTemplateLanguage {
+  english
+  hindi
+}
+
+type DocumentTemplateBody {
+  language DocumentTemplateLanguage
+  body     String
+}
+
+model DocumentTemplate {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  type             DocumentTemplateType
+  name             String
+  body             DocumentTemplateBody[]
+  businessBranchId String                 @db.ObjectId
+  active           Boolean                @default(true)
+
+  businessBranch BusinessBranch @relation(fields: [businessBranchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,21 @@
+model OrthopedicExam {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // ─── Links ───
+  visitId String @db.ObjectId
+  petId   String @db.ObjectId
+
+  // ─── Orthopedic Exam Data ───
+  physical    Json? // Distribution map, Joint exam, Gait, etc.
+  assessment  Json? // Ortho-specific assessment notes
+  plan        Json? // Ortho-specific plan notes
+
+  // ─── Metadata ───
+  businessBranchId String   @db.ObjectId
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("orthopedic_exams")
+  @@index([visitId])
+  @@index([petId])
+}

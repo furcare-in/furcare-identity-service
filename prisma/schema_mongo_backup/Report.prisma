@@ -1,0 +1,35 @@
+enum ReportType {
+  appointments
+  admin
+  client_and_patient
+  inventory
+  communication
+  visits
+  leads
+}
+
+enum ReportFrequency {
+  day
+  week
+  month
+}
+
+model Report {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name                 String
+  type                 ReportType
+  fields               String[]
+  generateInBackground Boolean
+  frequency            ReportFrequency?
+  businessBranchId     String?          @db.ObjectId
+  businessBranch       BusinessBranch?  @relation(fields: [businessBranchId], references: [id])
+  businessUnitId       String?          @db.ObjectId
+  businessUnit         BusinessUnit?    @relation(fields: [businessUnitId], references: [id])
+
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reports")
+}

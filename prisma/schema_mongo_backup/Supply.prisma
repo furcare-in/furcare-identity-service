@@ -1,0 +1,26 @@
+model Item {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name     String
+  vendorId String @db.ObjectId
+  vendor   Vendor @relation(fields: [vendorId], references: [id])
+  supplyId String @db.ObjectId
+  supply   Supply @relation(fields: [supplyId], references: [id])
+
+  @@map("items")
+}
+
+model Supply {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name             String
+  businessBranchId String         @db.ObjectId
+  businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
+  items            Item[]
+  active           Boolean        @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("supplies")
+}

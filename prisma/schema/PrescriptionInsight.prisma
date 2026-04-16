@@ -1,0 +1,33 @@
+model PrescriptionInsight {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  medicineId       String?  @db.ObjectId
+  masterMedicine   MasterMedicine? @relation(fields: [medicineId], references: [id])
+
+  genericName      String
+  brandName        String?
+  
+  doctorId         String?  @db.ObjectId
+  visitId          String?  @db.ObjectId
+  
+  strength         String?
+  form             String?
+  minDoseMgPerKg   Float?
+  maxDoseMgPerKg   Float?
+  doseUnit         String?
+  route            String?
+  frequency        String?
+  species          String?
+
+  businessBranchId String   @db.ObjectId
+  
+  prescribedAt     DateTime @default(now())
+  createdAt        DateTime @default(now())
+
+  @@index([genericName])
+  @@index([doctorId])
+  @@index([businessBranchId])
+  @@index([prescribedAt])
+  @@map("prescription_insights")
+}
+

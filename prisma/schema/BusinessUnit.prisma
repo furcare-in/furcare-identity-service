@@ -1,0 +1,43 @@
+model BusinessUnit {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name     String
+  type     String
+  branches BusinessBranch[]
+  roles    Role[]
+  staff    Staff[]
+  vendors  Vendor[]
+
+  createdAt            DateTime                     @default(now())
+  updatedAt            DateTime                     @updatedAt
+  availableServices    BusinessUnitsToServices[]
+  availableDepartments BusinessUnitsToDepartments[]
+  reportId             String?                      @db.ObjectId
+  Report               Report[]
+
+  @@map("business_units")
+}
+
+model BusinessUnitsToServices {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  businessUnitId String @db.ObjectId
+  serviceId      String @db.ObjectId
+
+  businessUnit BusinessUnit @relation(fields: [businessUnitId], references: [id])
+  service      Service      @relation(fields: [serviceId], references: [id])
+
+  @@unique([businessUnitId, serviceId])
+}
+
+model BusinessUnitsToDepartments {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  businessUnitId String @db.ObjectId
+  departmentId   String @db.ObjectId
+
+  businessUnit BusinessUnit @relation(fields: [businessUnitId], references: [id])
+  department   Department   @relation(fields: [departmentId], references: [id])
+
+  @@unique([businessUnitId, departmentId])
+}

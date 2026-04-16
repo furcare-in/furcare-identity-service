@@ -1,0 +1,32 @@
+model Group {
+  id Int @id @default(autoincrement())
+
+  name             String
+  description      String?
+  businessBranchId Int
+  active           Boolean         @default(true)
+  resources        GroupsToStaff[]
+  schedules        StaffSchedule[]
+  shiftStartTime   String?
+  shiftEndTime     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("groups")
+}
+
+model GroupsToStaff {
+  id Int @id @default(autoincrement())
+
+  groupId      Int
+  staffId      Int
+  groupDetails Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  staffDetails Staff @relation(fields: [staffId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([staffId, groupId])
+  @@map("groups_to_staff")
+}

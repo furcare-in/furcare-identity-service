@@ -1,0 +1,46 @@
+{
+  "name": "backend",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "npx prisma@5.20.0 generate && NODE_OPTIONS=--max_old_space_size=512 tsc",
+    "start": "node dist/index.js",
+    "verify:vet-score": "tsx verify_vet_scoring_v2.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "keywords": [],
+  "author": "Repsoft",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/form-data": "^2.2.1",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^25.5.0",
+    "prettier": "^3.4.1",
+    "prisma": "^5.20.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@google/genai": "^1.41.0",
+    "@prisma/client": "^5.20.0",
+    "@types/multer": "^2.1.0",
+    "axios": "^1.13.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.1",
+    "form-data": "^4.0.5",
+    "http-status": "^1.7.4",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.1.1",
+    "oslo": "^1.2.1",
+    "zod": "^3.23.8"
+  }
+}

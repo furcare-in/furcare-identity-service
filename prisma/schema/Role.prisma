@@ -1,0 +1,45 @@
+enum Action {
+  create
+  read
+  update
+  delete
+  write
+}
+
+enum Resource {
+  document
+  animalClass
+  diagnosticIntegration
+}
+
+type Permission {
+  action   Action
+  resource Resource
+}
+
+enum AccessLevel {
+  businessUnit
+  businessBranch
+}
+
+model Role {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name        String
+  permissions Permission[]
+
+  businessUnitId   String          @db.ObjectId
+  businessUnit     BusinessUnit    @relation(fields: [businessUnitId], references: [id])
+  accessLevel      AccessLevel
+  active           Boolean         @default(true)
+  businessBranchId String?         @db.ObjectId
+  businessBranch   BusinessBranch? @relation(fields: [businessBranchId], references: [id])
+  isStaff          Boolean         @default(true)
+
+  staff StaffToRoles[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("roles")
+}

@@ -1,0 +1,17 @@
+model DrugScoreCache {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  brandName String
+  genericName String?
+  score     Int
+  tier      String
+  reasons   String[]
+  confidence String
+  signalCount Int      @default(0)
+  version   String   @default("1.0")
+  tierInfo   Json
+  lastUpdated DateTime @default(now())
+  expiresAt   DateTime
+
+  @@unique([brandName, genericName])
+  @@map("drug_score_cache")
+}

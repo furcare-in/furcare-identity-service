@@ -1,0 +1,65 @@
+model AnesthesiaSession {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // ─── Links (Like VaccinationStatus) ───
+  visitId String @db.ObjectId
+  petId   String @db.ObjectId
+
+  // ─── Session Status ───
+  status       String @default("draft") // draft, in_progress, completed
+  currentPhase String @default("consent") // consent, preMedication, induction, monitoring
+
+  // ─── Consent Data ───
+  consentMethod   String?
+  consentComments String?
+  consentEmail    String?
+  consentMobile   String?
+  standardRates   Boolean? @default(true)
+
+  // ─── Pre-Medication Phase ───
+  preMedVitals      Json? // { wt, temp, hr, rr, mmColor, hydration, crt }
+  preMedVitalsHistory Json? // array of { wt, temp, hr, rr, mmColor, hydration, crt, time, asaStatus, ... }
+  preMedMedications Json? // [{ name, route, dose, strength, dosage, amountToAdminister, given, time, productId }]
+  preMedForms       Json? // { catheter, position, guage, accessType, administeredById, administeredByName }
+  preMedEffect      Int? // "Poor" | "Mild" | "Moderate" | "Profound" ("0", "1", "2", "3", "4" (sedation score))
+  preMedStartedAt   DateTime?
+  preMedCompletedAt DateTime?
+  preMedAccumulatedTimeMs Int? @default(0)
+  isPreMedRunning         Boolean? @default(false)
+
+  // ─── Pre-Anesthetic Assessment ───
+  asaStatus       String? // "ASA I", "ASA II", "ASA III", "ASA IV", "ASA V", "Emergency"
+  foodWithheld    String? // hours as string
+  waterWithheld   String? // hours as string
+
+  // ─── Induction Phase ───
+  inductionMedications Json? // [{ name, route, dose, strength, dosage, amountToAdminister, given, time, productId }]
+  inductionForms       Json? // { intubationSize, cuffed, intubatedById, intubatedByName, administeredById, administeredByName }
+  gasChecks            Json? // { gasConnected, gasConnectedTime, gasStarted, gasStartedTime, gasStopped, gasStoppedTime }
+  gasChecklistApplicable Boolean? @default(true)
+  inductionStartedAt   DateTime?
+  inductionCompletedAt DateTime?
+  inductionAccumulatedTimeMs Int? @default(0)
+  isInductionRunning         Boolean? @default(false)
+
+  // ─── Monitoring Phase ───
+  monitoringEntries Json? // [{ vitals: {15 fields}, timeRange, duration }]
+  monitoringAccumulatedTimeMs Int? @default(0)
+  isMonitoringRunning         Boolean? @default(false)
+
+  // ─── Event Log ───
+  eventLog Json? // array of { time: string, label: string } or null (separator)
+
+  // Safety Checklist
+  safetyCheckCompletedAt DateTime? // when the checklist was acknowledged
+  safetyCheckItems       Json?     // { oxygen: true, vaporizer: true, ... }
+
+  // ─── Metadata ───
+  businessBranchId String   @db.ObjectId
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("anesthesia_sessions")
+  @@index([visitId])
+  @@index([petId])
+}

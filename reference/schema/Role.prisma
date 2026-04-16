@@ -1,0 +1,23 @@
+/// The composite type Permission has been replaced with a JSON field on Role.
+/// Each entry in the permissions JSON array should have shape: { action: Action, resource: Resource }
+model Role {
+  id Int @id @default(autoincrement())
+
+  name        String
+  permissions Json    @default("[]")
+
+  businessUnitId   Int
+  businessUnit     BusinessUnit    @relation(fields: [businessUnitId], references: [id])
+  accessLevel      AccessLevel
+  active           Boolean         @default(true)
+  businessBranchId Int?
+  businessBranch   BusinessBranch? @relation(fields: [businessBranchId], references: [id])
+  isStaff          Boolean         @default(true)
+
+  staff StaffToRoles[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("roles")
+}

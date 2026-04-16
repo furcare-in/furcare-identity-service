@@ -1,0 +1,12 @@
+{
+  "id": "4503ea39-9018-4c5f-a7ba-c59299a59d12",
+  "title": "Client Connections Call",
+  "body": "<h2>Client Connections Call </h2><p><br></p><p>{User FullName} called {Client.FullName} today to connect.</p><p><br></p><p>Purpose:</p><p><br></p><p>Topics Discussed:</p><p><br></p><p>Benefits:</p>",
+  "category": "Client_And_Communications",
+  "businessBranchId": "SYSTEM_RESTORED",
+  "staffId": "SYSTEM_RESTORED",
+  "active": true,
+  "animalClassId": "",
+  "createdAt": "2026-01-13T09:36:50.552Z",
+  "updatedAt": "2026-01-13T09:36:50.552Z"
+}

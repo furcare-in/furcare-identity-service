@@ -1,0 +1,44 @@
+model AnesthesiaSession {
+  id Int @id @default(autoincrement())
+
+  // ─── Links (Like VaccinationStatus) ───
+  visitId Int
+  petId   Int
+
+  // ─── Session Status ───
+  status       String @default("draft") // draft, in_progress, completed
+  currentPhase String @default("consent") // consent, preMedication, induction, monitoring
+
+  // ─── Consent Data ───
+  consentMethod   String?
+  consentComments String?
+  consentEmail    String?
+  consentMobile   String?
+  standardRates   Boolean? @default(true)
+
+  // ─── Pre-Medication Phase ───
+  preMedVitals      Json? // { wt, temp, hr, rr, mmColor, hydration }
+  preMedMedications Json? // [{ name, route, dose, strength, dosage, amountToAdminister, time, productId }]
+  preMedForms       Json? // { catheter, position, guage, administeredById, administeredByName }
+  preMedEffect      String? // "Poor" | "Mild" | "Moderate" | "Profound"
+  preMedStartedAt   DateTime?
+  preMedCompletedAt DateTime?
+
+  // ─── Induction Phase ───
+  inductionMedications Json? // [{ name, route, dose, strength, dosage, amountToAdminister, time, productId }]
+  inductionForms       Json? // { intubationSize, cuffed, intubatedById, intubatedByName, administeredById, administeredByName }
+  inductionStartedAt   DateTime?
+  inductionCompletedAt DateTime?
+
+  // ─── Monitoring Phase ───
+  monitoringEntries Json? // [{ vitals: {15 fields}, timeRange, duration }]
+
+  // ─── Metadata ───
+  businessBranchId Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("anesthesia_sessions")
+  @@index([visitId])
+  @@index([petId])
+}

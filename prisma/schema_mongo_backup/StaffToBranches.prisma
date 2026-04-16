@@ -1,0 +1,15 @@
+model StaffToBranches {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  staffId  String @db.ObjectId
+  branchId String @db.ObjectId
+
+  staff  Staff          @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  branch BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([staffId, branchId])
+  @@map("staff_to_branches")
+}

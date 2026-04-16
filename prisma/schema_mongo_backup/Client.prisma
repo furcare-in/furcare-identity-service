@@ -1,0 +1,31 @@
+model Client {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  clientId String @unique
+
+  firstName String
+  lastName  String
+  phone     String
+  email     String
+
+  address    String
+  country    String
+  state      String
+  city       String
+  postalCode String
+
+  referredBy String?
+  discounts  String?
+  pets       Pet[]
+  visits     Visit[]
+
+  businessBranchId String         @db.ObjectId
+  businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
+
+  active Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, active])
+}
