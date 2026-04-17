@@ -1,5 +1,5 @@
 model Client {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   clientId String @unique
 
@@ -19,7 +19,7 @@ model Client {
   pets       Pet[]
   visits     Visit[]
 
-  businessBranchId String         @db.ObjectId
+  businessBranchId Int         
   businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
 
   active Boolean @default(true)

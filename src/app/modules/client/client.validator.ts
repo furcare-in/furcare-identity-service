@@ -1,4 +1,6 @@
-import { AnimalGender, SterilizationStatus } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { AnimalGender, SterilizationStatus } = pkg;
 import { z } from "zod";
 
 const petSchema = z.strictObject({

@@ -1,14 +1,14 @@
 model PrescriptionInsight {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   
-  medicineId       String?  @db.ObjectId
+  medicineId Int?  
   masterMedicine   MasterMedicine? @relation(fields: [medicineId], references: [id])
 
   genericName      String
   brandName        String?
   
-  doctorId         String?  @db.ObjectId
-  visitId          String?  @db.ObjectId
+  doctorId         String?  
+  visitId          String?  
   
   strength         String?
   form             String?
@@ -19,7 +19,7 @@ model PrescriptionInsight {
   frequency        String?
   species          String?
 
-  businessBranchId String   @db.ObjectId
+  businessBranchId String   
   
   prescribedAt     DateTime @default(now())
   createdAt        DateTime @default(now())

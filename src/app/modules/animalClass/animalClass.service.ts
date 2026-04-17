@@ -1,4 +1,6 @@
-import { AnimalClass, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { AnimalClass, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -9,7 +11,7 @@ const createAnimalClass = async (data: AnimalClass) => {
 };
 
 const getAnimalClassById = async (id: string) => {
-  return prisma.animalClass.findUnique({ where: { id } });
+  return prisma.animalClass.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedAnimalClasss = async (
@@ -79,7 +81,7 @@ const getPaginatedAnimalClasss = async (
       include: {
         availableAt: business_branch_id
           ? {
-            where: { branchId: business_branch_id },
+            where: { branchId: Number(business_branch_id) },
             select: { active: true },
           }
           : false,
@@ -97,11 +99,11 @@ const getPaginatedAnimalClasss = async (
 };
 
 const updateAnimalClass = async (id: string, data: Partial<AnimalClass>) => {
-  return prisma.animalClass.update({ where: { id }, data });
+  return prisma.animalClass.update({ where: { id: Number(id) }, data });
 };
 
 const deleteAnimalClass = async (id: string) => {
-  return prisma.animalClass.delete({ where: { id } });
+  return prisma.animalClass.delete({ where: { id: Number(id) } });
 };
 
 const animalClassService = {

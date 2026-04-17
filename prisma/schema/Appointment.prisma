@@ -1,5 +1,5 @@
 model Appointment {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   clientId         String
   name             String

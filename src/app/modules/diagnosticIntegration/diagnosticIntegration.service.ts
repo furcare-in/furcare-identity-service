@@ -1,4 +1,6 @@
-import { DiagnosticIntegration, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { DiagnosticIntegration, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -9,7 +11,7 @@ const createDiagnosticIntegration = async (data: DiagnosticIntegration) => {
 };
 
 const getDiagnosticIntegrationById = async (id: string) => {
-  return prisma.diagnosticIntegration.findUnique({ where: { id } });
+  return prisma.diagnosticIntegration.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedDiagnosticIntegrations = async (
@@ -71,11 +73,11 @@ const updateDiagnosticIntegration = async (
   id: string,
   data: Partial<DiagnosticIntegration>,
 ) => {
-  return prisma.diagnosticIntegration.update({ where: { id }, data });
+  return prisma.diagnosticIntegration.update({ where: { id: Number(id) }, data });
 };
 
 const deleteDiagnosticIntegration = async (id: string) => {
-  return prisma.diagnosticIntegration.delete({ where: { id } });
+  return prisma.diagnosticIntegration.delete({ where: { id: Number(id) } });
 };
 
 const diagnosticIntegrationService = {

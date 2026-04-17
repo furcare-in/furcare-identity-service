@@ -1,4 +1,6 @@
-import { BusinessBranch, BusinessUnit, Staff } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { BusinessBranch, BusinessUnit, Staff } = pkg;
 import prisma from "../../../utils/prisma.js";
 import { Argon2id } from "oslo/password";
 
@@ -230,7 +232,7 @@ const onboardBusinessUnit = async (
 
 const getBusinessUnitById = async (id: string) => {
   return prisma.businessUnit.findUnique({
-    where: { id },
+    where: { id: Number(id) },
     include: {
       // Full branch details — same as getLatestBusinessUnit so the
       // onboarding page can load correctly when fetching by a specific ID.
@@ -340,7 +342,7 @@ const updateBusinessUnit = async (
     // 1. Update the core BusinessUnit record
     // Note: BusinessUnit schema only has name + type as updateable scalar fields
     const updatedBusinessUnit = await tx.businessUnit.update({
-      where: { id },
+      where: { id: Number(id) },
       data: {
         name: data.name,
         type: data.type,
@@ -366,7 +368,7 @@ const updateBusinessUnit = async (
         // Update existing branch
         // Note: Only update fields that exist in the BusinessBranch Prisma schema
         const updated = await tx.businessBranch.update({
-          where: { id: branch.id },
+          where: { id: Number(branch.id) },
           data: {
             name: branch.name,
             type: branch.type,

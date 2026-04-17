@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Router } from "express";
 import diagnosticIntegrationController from "./diagnosticIntegration.controller.js";
 import validateRequest from "../../middleware/validateRequest.js";

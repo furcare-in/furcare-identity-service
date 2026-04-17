@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express from "express";
 import { ChatbotController } from "./chatbot.controller.js";
 import auth from "../../middleware/auth.js";

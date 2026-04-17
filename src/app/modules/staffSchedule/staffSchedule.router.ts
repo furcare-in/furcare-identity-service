@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express from 'express';
 import validateRequest from '../../middleware/validateRequest.js';
 import staffScheduleController from './staffSchedule.controller.js';

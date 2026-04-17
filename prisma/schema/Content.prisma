@@ -8,17 +8,17 @@ enum ContentCategory {
 }
 
 model Content {
-  id                  String               @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   category            ContentCategory
   gender              AnimalGender?
-  animalClassId       String?              @db.ObjectId
+  animalClassId Int?              
   animalBreed         String?
   ageRange            Int?
   healthConcerns      String[]
   sterilizationStatus SterilizationStatus?
   title               String               @default("")
   body                String
-  businessBranchId    String?              @db.ObjectId
+  businessBranchId Int?              
   active              Boolean              @default(true)
 
   animalClass    AnimalClass?   @relation(fields: [animalClassId], references: [id])

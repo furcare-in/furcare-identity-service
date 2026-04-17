@@ -1,5 +1,5 @@
 model Location {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   name String
 
   availableAtBusinessBranches LocationsToBranches[]
@@ -11,9 +11,9 @@ model Location {
 }
 
 model LocationsToBranches {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  locationId String @db.ObjectId
-  branchId   String @db.ObjectId
+  id Int @id @default(autoincrement())
+  locationId Int 
+  branchId Int 
 
   locationDetails Location       @relation(fields: [locationId], references: [id])
   branchDetails   BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)

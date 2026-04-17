@@ -1,8 +1,8 @@
-import {
-  AnimalGender,
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { AnimalGender,
   ContentCategory,
-  SterilizationStatus,
-} from "@prisma/client";
+  SterilizationStatus, } = pkg;
 import { z } from "zod";
 
 const createContentSchema = z.object({

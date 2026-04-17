@@ -1,5 +1,5 @@
 model DiagnosticIntegration {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name             String
   addressLine1     String?
@@ -9,7 +9,7 @@ model DiagnosticIntegration {
   country          String?
   postalCode       String?
   url              String?
-  businessBranchId String  @db.ObjectId
+  businessBranchId Int  
   isInternal       Boolean @default(false)
   active           Boolean @default(true)
 

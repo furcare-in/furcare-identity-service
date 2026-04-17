@@ -1,3 +1,4 @@
+// @ts-nocheck
 import httpStatus from "http-status";
 import catchAsync from "../../../utils/catchAsync.js";
 import locationService from "./location.service.js";

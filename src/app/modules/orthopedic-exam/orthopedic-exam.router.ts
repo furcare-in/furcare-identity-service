@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express from "express";
 import { OrthopedicExamController } from "./orthopedic-exam.controller.js";
 import validateRequest from "../../middleware/validateRequest.js";

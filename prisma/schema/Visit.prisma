@@ -1,18 +1,18 @@
 model Visit {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   date      DateTime
   reason    String
   notes     String?
   status    String   @default("Scheduled") // Scheduled, In Progress, Completed, Cancelled
 
-  clientId  String   @db.ObjectId
+  clientId Int   
   client    Client   @relation(fields: [clientId], references: [id])
   
-  petId     String   @db.ObjectId
+  petId Int   
   pet       Pet      @relation(fields: [petId], references: [id])
   
-  moduleId String? @db.ObjectId // Optional reference to a medical record or other module
+  moduleId String?  // Optional reference to a medical record or other module
 
   // Medical Record Details
   author            String?
@@ -33,7 +33,7 @@ model Visit {
   invoiceNumber     String?
   paymentDate       DateTime?
 
-  businessBranchId String         @db.ObjectId
+  businessBranchId Int         
   businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
 
   createdAt DateTime @default(now())

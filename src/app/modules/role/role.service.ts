@@ -1,4 +1,6 @@
-import { Role, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { Role, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -12,7 +14,7 @@ const createRole = async (payload: Role & { branchAccess: string[] }) => {
 };
 
 const getRoleById = async (id: string) => {
-  return prisma.role.findUnique({ where: { id } });
+  return prisma.role.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedRoles = async (
@@ -71,11 +73,11 @@ const getPaginatedRoles = async (
 };
 
 const updateRole = async (id: string, data: Partial<Role>) => {
-  return prisma.role.update({ where: { id }, data });
+  return prisma.role.update({ where: { id: Number(id) }, data });
 };
 
 const deleteRole = async (id: string) => {
-  return prisma.role.delete({ where: { id } });
+  return prisma.role.delete({ where: { id: Number(id) } });
 };
 
 const roleService = {

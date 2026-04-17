@@ -1,5 +1,5 @@
 model Product {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name        String
   description String?
@@ -43,10 +43,10 @@ model Product {
   // Location/Storage
   location String?
 
-  supplierId   String?   @db.ObjectId
+  supplierId Int?   
   supplier     Supplier? @relation(fields: [supplierId], references: [id])
 
-  businessBranchId String         @db.ObjectId
+  businessBranchId Int         
   businessBranch   BusinessBranch @relation(fields: [businessBranchId], references: [id])
   
   active Boolean @default(true)

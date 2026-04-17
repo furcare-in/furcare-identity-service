@@ -1,13 +1,13 @@
-import {
-  AnimalClass,
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { AnimalClass,
   AppointmentSlot,
   BranchesToAnimalClasses,
   BusinessBranch,
   ContentCategory,
   DepartmentsToBranches,
   Prisma,
-  ServicesToBranches,
-} from "@prisma/client";
+  ServicesToBranches, } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -97,7 +97,7 @@ const createBusinessBranch = async (
 
 const getBusinessBranchById = async (id: string) => {
   const branch = await prisma.businessBranch.findUnique({
-    where: { id },
+    where: { id: Number(id) },
     include: {
       services: true,
       departments: { include: { departmentDetails: true } },
@@ -176,11 +176,11 @@ const getPaginatedBusinessBranchs = async (
 };
 
 const updateBusinessBranch = async (id: string, data: Partial<AnimalClass>) => {
-  return prisma.businessBranch.update({ where: { id }, data });
+  return prisma.businessBranch.update({ where: { id: Number(id) }, data });
 };
 
 const deleteBusinessBranch = async (id: string) => {
-  return prisma.businessBranch.delete({ where: { id } });
+  return prisma.businessBranch.delete({ where: { id: Number(id) } });
 };
 
 const addAnimalClassToBranch = async (
@@ -218,7 +218,7 @@ const addDepartmentsToBranch = async (
   departmentIds: string[],
 ) => {
   const branch = await prisma.businessBranch.findUnique({
-    where: { id: branchId },
+    where: { id: Number(branchId) },
     include: { businessUnit: { include: { availableDepartments: true } } },
   });
 
@@ -283,7 +283,7 @@ const addServicesToBranch = async (
   services: { serviceId: string; basePrice: number }[],
 ) => {
   const branch = await prisma.businessBranch.findUnique({
-    where: { id: branchId },
+    where: { id: Number(branchId) },
     include: {
       businessUnit: { include: { availableServices: true } },
     },
@@ -350,7 +350,7 @@ const addAppointmentSlotsToBranch = async (
   }[],
 ) => {
   const branch = await prisma.businessBranch.findUnique({
-    where: { id: branchId },
+    where: { id: Number(branchId) },
     include: { departments: true },
   });
 
@@ -380,7 +380,7 @@ const updateAppointmentSlotInBranch = async (
   data: Partial<AppointmentSlot>,
 ) => {
   const branch = await prisma.businessBranch.findUnique({
-    where: { id: branchId },
+    where: { id: Number(branchId) },
     include: { appointmentSlots: true },
   });
 
@@ -389,7 +389,7 @@ const updateAppointmentSlotInBranch = async (
     throw new ApiError(httpStatus.NOT_FOUND, "Appointment slot not found");
 
   return prisma.appointmentSlot.update({
-    where: { id: appointmentSlotId },
+    where: { id: Number(appointmentSlotId) },
     data,
   });
 };

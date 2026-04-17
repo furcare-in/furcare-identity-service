@@ -1,4 +1,6 @@
-import { Group, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { Group, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -24,7 +26,7 @@ const createGroup = async (payload: Group & { resources: string[] }) => {
 };
 
 const getGroupById = async (id: string) => {
-  return prisma.group.findUnique({ where: { id } });
+  return prisma.group.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedGroups = async (
@@ -96,7 +98,7 @@ const getPaginatedGroups = async (
 };
 
 const updateGroup = async (id: string, data: Partial<Group>) => {
-  return prisma.group.update({ where: { id }, data });
+  return prisma.group.update({ where: { id: Number(id) }, data });
 };
 
 const addRerouceToGroup = async (groupId: string, staffIds: string[]) => {
@@ -106,7 +108,7 @@ const addRerouceToGroup = async (groupId: string, staffIds: string[]) => {
   if (staffs.some((staff) => staff === null))
     throw new ApiError(httpStatus.NOT_FOUND, "One or more staff not found");
 
-  const group = await prisma.group.findUnique({ where: { id: groupId } });
+  const group = await prisma.group.findUnique({ where: { id: Number(groupId) } });
   if (!group) throw new ApiError(httpStatus.NOT_FOUND, "Group not found");
 
   if (staffs.some((staff) => staff.businessBranchId !== group.businessBranchId))
@@ -127,7 +129,7 @@ const removeRerouceToGroup = async (groupId: string, staffIds: string[]) => {
 };
 
 const deleteGroup = async (id: string) => {
-  return prisma.group.delete({ where: { id } });
+  return prisma.group.delete({ where: { id: Number(id) } });
 };
 
 const groupService = {

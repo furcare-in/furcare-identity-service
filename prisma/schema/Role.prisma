@@ -12,10 +12,7 @@ enum Resource {
   diagnosticIntegration
 }
 
-type Permission {
-  action   Action
-  resource Resource
-}
+
 
 enum AccessLevel {
   businessUnit
@@ -23,16 +20,16 @@ enum AccessLevel {
 }
 
 model Role {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name        String
-  permissions Permission[]
+  permissions Json[]
 
-  businessUnitId   String          @db.ObjectId
+  businessUnitId Int          
   businessUnit     BusinessUnit    @relation(fields: [businessUnitId], references: [id])
   accessLevel      AccessLevel
   active           Boolean         @default(true)
-  businessBranchId String?         @db.ObjectId
+  businessBranchId Int?         
   businessBranch   BusinessBranch? @relation(fields: [businessBranchId], references: [id])
   isStaff          Boolean         @default(true)
 

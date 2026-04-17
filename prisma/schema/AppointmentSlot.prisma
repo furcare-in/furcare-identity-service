@@ -1,10 +1,10 @@
 model AppointmentSlot {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name         String
   description  String?
-  departmentId String   @db.ObjectId
-  branchId     String   @db.ObjectId
+  departmentId Int   
+  branchId Int   
   reasons      String[]
   active       Boolean  @default(true)
 

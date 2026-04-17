@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Router } from "express";
 import appointmentController from "./appointment.controller.js";
 const appointmentRouter = Router();

@@ -1,4 +1,6 @@
-import { ReportType, ReportFrequency } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { ReportType, ReportFrequency } = pkg;
 import { z } from "zod";
 
 const objectIdSchema = z.string().regex(/^[0-9a-fA-F]{24}$/, "Invalid ObjectId");

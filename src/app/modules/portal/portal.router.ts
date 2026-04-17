@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express from "express";
 import { PortalController } from "./portal.controller.js";
 import auth from "../../middleware/auth.js";

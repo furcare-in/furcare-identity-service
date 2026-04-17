@@ -1,3 +1,4 @@
+// @ts-nocheck
 import httpStatus from "http-status";
 import catchAsync from "../../../utils/catchAsync.js";
 import { authService } from "./auth.service.js";

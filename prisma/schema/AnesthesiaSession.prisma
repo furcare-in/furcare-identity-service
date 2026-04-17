@@ -1,9 +1,9 @@
 model AnesthesiaSession {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   // ─── Links (Like VaccinationStatus) ───
-  visitId String @db.ObjectId
-  petId   String @db.ObjectId
+  visitId String 
+  petId   String 
 
   // ─── Session Status ───
   status       String @default("draft") // draft, in_progress, completed
@@ -55,7 +55,7 @@ model AnesthesiaSession {
   safetyCheckItems       Json?     // { oxygen: true, vaporizer: true, ... }
 
   // ─── Metadata ───
-  businessBranchId String   @db.ObjectId
+  businessBranchId String   
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 

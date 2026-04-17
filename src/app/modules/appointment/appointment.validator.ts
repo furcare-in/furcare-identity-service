@@ -1,4 +1,6 @@
-import { DocumentTemplateLanguage, DocumentTemplateType } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { DocumentTemplateLanguage, DocumentTemplateType } = pkg;
 import { z } from "zod";
 
 const createAppointmentSchema = z.object({

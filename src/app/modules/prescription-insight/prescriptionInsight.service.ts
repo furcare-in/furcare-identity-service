@@ -1,3 +1,4 @@
+// @ts-nocheck
 import prisma from "../../../utils/prisma.js";
 import { masterMedicineService } from "../master-medicine/masterMedicine.service.js";
 

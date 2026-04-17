@@ -1,7 +1,7 @@
 model Room {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   name             String
-  businessBranchId String   @db.ObjectId
+  businessBranchId String   
   roomServices     RoomService[]
 
   createdAt DateTime @default(now())

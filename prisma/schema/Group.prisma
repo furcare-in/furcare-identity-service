@@ -1,9 +1,9 @@
 model Group {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name             String
   description      String?
-  businessBranchId String          @db.ObjectId
+  businessBranchId String          
   active           Boolean         @default(true)
   resources        GroupsToStaff[]
   schedules        StaffSchedule[]
@@ -17,10 +17,10 @@ model Group {
 }
 
 model GroupsToStaff {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
-  groupId      String @db.ObjectId
-  staffId      String @db.ObjectId
+  groupId Int 
+  staffId Int 
   groupDetails Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
   staffDetails Staff  @relation(fields: [staffId], references: [id])
 

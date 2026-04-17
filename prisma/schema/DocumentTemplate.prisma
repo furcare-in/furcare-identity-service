@@ -12,18 +12,15 @@ enum DocumentTemplateLanguage {
   hindi
 }
 
-type DocumentTemplateBody {
-  language DocumentTemplateLanguage
-  body     String
-}
+
 
 model DocumentTemplate {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   type             DocumentTemplateType
   name             String
-  body             DocumentTemplateBody[]
-  businessBranchId String                 @db.ObjectId
+  body             Json[]
+  businessBranchId Int                 
   active           Boolean                @default(true)
 
   businessBranch BusinessBranch @relation(fields: [businessBranchId], references: [id])

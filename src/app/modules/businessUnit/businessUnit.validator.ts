@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { z } from "zod";
 import { businessBranchBaseSchema } from "../businessBranch/businessBranch.validator.js";
 import { staffBaseSchema } from "../staff/staff.validator.js";

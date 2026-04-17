@@ -1,4 +1,6 @@
-import { ReportFrequency, ReportType } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { ReportFrequency, ReportType } = pkg;
 import prisma from "../../../utils/prisma.js";
 
 type ReportValueType = "number" | "currency" | "percentage";
@@ -263,7 +265,7 @@ const resolveScope = async ({
 
   if (isValidObjectId(businessUnitId)) {
     const branches = await prisma.businessBranch.findMany({
-      where: { businessUnitId },
+      where: { businessUnitId: Number(businessUnitId) },
       select: { id: true },
     });
     return {

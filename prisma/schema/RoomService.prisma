@@ -1,7 +1,7 @@
 model RoomService {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  roomId    String   @db.ObjectId
-  serviceId String   @db.ObjectId
+  id Int @id @default(autoincrement())
+  roomId Int   
+  serviceId Int   
   price     Float
   duration  Int
   

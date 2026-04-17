@@ -1,16 +1,16 @@
 model Pet {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name                String
   gender              AnimalGender
   dob                 DateTime
   weight              Float
-  animalClassId       String              @db.ObjectId
+  animalClassId Int              
   breed               String
   color               String
   sterilizationStatus SterilizationStatus
   patientType         String
-  clientId            String              @db.ObjectId
+  clientId Int              
   active              Boolean             @default(true)
 
   animalClass AnimalClass @relation(fields: [animalClassId], references: [id])

@@ -1,10 +1,10 @@
 model VaccinationStatus {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  petId             String   @db.ObjectId
+  id Int @id @default(autoincrement())
+  petId Int   
   pet               Pet      @relation(fields: [petId], references: [id])
   
   // Link to Inventory (Product)
-  productId         String?  @db.ObjectId
+  productId Int?  
   product           Product? @relation(fields: [productId], references: [id])
   
   // Snapshot Data (Preserves history even if Product changes)
@@ -18,10 +18,10 @@ model VaccinationStatus {
   status            String   @default("On Track") // "On Track", "Due Soon", "Past Due"
   
   // Traceability
-  visitId           String?  @db.ObjectId   // Link to clinical event
+  visitId           String?     // Link to clinical event
   isManuallyEntered Boolean  @default(false)
   
-  businessBranchId  String   @db.ObjectId
+  businessBranchId Int   
   businessBranch    BusinessBranch @relation(fields: [businessBranchId], references: [id])
 
   createdAt         DateTime @default(now())

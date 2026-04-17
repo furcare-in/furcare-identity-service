@@ -1,5 +1,5 @@
 model Staff {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name                String
   phone               String          @unique
@@ -11,8 +11,8 @@ model Staff {
   roles               StaffToRoles[]
   shiftStartTime      String?
   shiftEndTime        String?
-  businessUnitId      String?         @db.ObjectId
-  businessBranchId    String?         @db.ObjectId
+  businessUnitId Int?         
+  businessBranchId Int?         
   businessUnit        BusinessUnit?   @relation(fields: [businessUnitId], references: [id])
   businessBranch      BusinessBranch? @relation(fields: [businessBranchId], references: [id])
   groups              GroupsToStaff[]
@@ -30,10 +30,10 @@ model Staff {
 }
 
 model StaffToRoles {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
-  staffId      String  @db.ObjectId
-  roleId       String? @db.ObjectId
+  staffId Int  
+  roleId Int? 
   staffDetails Staff   @relation(fields: [staffId], references: [id], onDelete: Cascade)
   roleDetails  Role?   @relation(fields: [roleId], references: [id], onDelete: SetNull)
 }

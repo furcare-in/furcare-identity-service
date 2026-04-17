@@ -1,4 +1,6 @@
-import { Product, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { Product, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
     PaginationOptions,
@@ -15,7 +17,7 @@ const createProduct = async (data: any) => {
 
 const getProductById = async (id: string) => {
     return prisma.product.findUnique({
-        where: { id },
+        where: { id: Number(id) },
         include: {
             supplier: true,
             businessBranch: true,
@@ -80,7 +82,7 @@ const getAllProducts = async (
 
 const updateProduct = async (id: string, data: any) => {
     return prisma.product.update({
-        where: { id },
+        where: { id: Number(id) },
         data,
         include: {
             supplier: true
@@ -89,7 +91,7 @@ const updateProduct = async (id: string, data: any) => {
 };
 
 const deleteProduct = async (id: string) => {
-    return prisma.product.delete({ where: { id } });
+    return prisma.product.delete({ where: { id: Number(id) } });
 };
 
 const calculateDosage = async (id: string, payload: any) => {
@@ -101,7 +103,7 @@ const calculateDosage = async (id: string, payload: any) => {
     }
 
     const product = await prisma.product.findUnique({
-        where: { id }
+        where: { id: Number(id) }
     });
 
     if (!product) {

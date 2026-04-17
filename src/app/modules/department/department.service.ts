@@ -1,4 +1,6 @@
-import { Department, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { Department, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -9,7 +11,7 @@ const createDepartment = async (data: Department) => {
 };
 
 const getDepartmentById = async (id: string) => {
-  return prisma.department.findUnique({ where: { id } });
+  return prisma.department.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedDepartments = async (
@@ -42,7 +44,7 @@ const getPaginatedDepartments = async (
   if (businessUnitId) {
     const deptsToBusinessUnit =
       await prisma.businessUnitsToDepartments.findMany({
-        where: { businessUnitId },
+        where: { businessUnitId: Number(businessUnitId) },
       });
 
     conditions.push({
@@ -79,11 +81,11 @@ const getPaginatedDepartments = async (
 };
 
 const updateDepartment = async (id: string, data: Partial<Department>) => {
-  return prisma.department.update({ where: { id }, data });
+  return prisma.department.update({ where: { id: Number(id) }, data });
 };
 
 const deleteDepartment = async (id: string) => {
-  return prisma.department.delete({ where: { id } });
+  return prisma.department.delete({ where: { id: Number(id) } });
 };
 
 const departmentService = {

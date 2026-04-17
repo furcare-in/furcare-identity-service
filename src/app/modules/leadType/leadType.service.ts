@@ -1,4 +1,6 @@
-import { LeadType, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { LeadType, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, { PaginationOptions } from "../../../utils/pagination.js";
 

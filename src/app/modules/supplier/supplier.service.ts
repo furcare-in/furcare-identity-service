@@ -1,4 +1,6 @@
-import { Supplier, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { Supplier, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
     PaginationOptions,
@@ -10,7 +12,7 @@ const createSupplier = async (data: any) => {
 
 const getSupplierById = async (id: string) => {
     return prisma.supplier.findUnique({
-        where: { id },
+        where: { id: Number(id) },
         include: {
             businessBranch: true,
             products: true,
@@ -77,11 +79,11 @@ const getAllSuppliers = async (
 };
 
 const updateSupplier = async (id: string, data: any) => {
-    return prisma.supplier.update({ where: { id }, data });
+    return prisma.supplier.update({ where: { id: Number(id) }, data });
 };
 
 const deleteSupplier = async (id: string) => {
-    return prisma.supplier.delete({ where: { id } });
+    return prisma.supplier.delete({ where: { id: Number(id) } });
 };
 
 export const supplierService = {

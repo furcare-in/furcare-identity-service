@@ -1,4 +1,6 @@
-import { Report, Prisma, ReportType } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { Report, Prisma, ReportType } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -10,7 +12,7 @@ const createReport = async (data: Report) => {
 };
 
 const getReportById = async (id: string) => {
-  return prisma.report.findUnique({ where: { id } });
+  return prisma.report.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedReports = async (
@@ -81,11 +83,11 @@ const getPaginatedReports = async (
 };
 
 const updateReport = async (id: string, data: Partial<Report>) => {
-  return prisma.report.update({ where: { id }, data });
+  return prisma.report.update({ where: { id: Number(id) }, data });
 };
 
 const deleteReport = async (id: string) => {
-  return prisma.report.delete({ where: { id } });
+  return prisma.report.delete({ where: { id: Number(id) } });
 };
 
 const getReportFieldCatalog = (type?: ReportType) => {

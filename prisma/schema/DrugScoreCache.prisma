@@ -1,5 +1,5 @@
 model DrugScoreCache {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   brandName String
   genericName String?
   score     Int

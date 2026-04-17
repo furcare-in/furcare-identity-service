@@ -1,17 +1,17 @@
 model PortalPost {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   title            String
   content          String
   tags             String[]
   category         String?
   likes            Int      @default(0)
   views            Int      @default(0)
-  likedBy          String[] @db.ObjectId
+  likedBy          String[] 
   
-  authorId         String   @db.ObjectId
+  authorId Int   
   author           Staff    @relation(fields: [authorId], references: [id])
   
-  businessBranchId String?   @db.ObjectId
+  businessBranchId Int?   
   businessBranch   BusinessBranch? @relation(fields: [businessBranchId], references: [id])
   
   createdAt        DateTime @default(now())

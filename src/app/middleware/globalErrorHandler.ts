@@ -3,7 +3,8 @@ import { ZodError } from "zod";
 import env from "../../utils/env.js";
 import handleZodError from "../../errors/handleZodError.js";
 import ApiError from "../../errors/ApiError.js";
-import { Prisma } from "@prisma/client";
+import pkg from "@prisma/client";
+const { Prisma } = pkg;
 
 const globalErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   console.log("APP ERROR: ", { error });

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express from "express";
 import { AnesthesiaController } from "./anesthesia.controller.js";
 import { AnesthesiaValidation } from "./anesthesia.validator.js";

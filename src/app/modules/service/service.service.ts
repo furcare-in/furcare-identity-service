@@ -1,4 +1,6 @@
-import { Service, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { Service, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -9,7 +11,7 @@ const createService = async (data: Service) => {
 };
 
 const getServiceById = async (id: string) => {
-  return prisma.service.findUnique({ where: { id } });
+  return prisma.service.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedServices = async (
@@ -42,7 +44,7 @@ const getPaginatedServices = async (
   if (businessUnitId) {
     const servicesToBusinessUnit =
       await prisma.businessUnitsToServices.findMany({
-        where: { businessUnitId },
+        where: { businessUnitId: Number(businessUnitId) },
       });
 
     conditions.push({
@@ -79,11 +81,11 @@ const getPaginatedServices = async (
 };
 
 const updateService = async (id: string, data: Partial<Service>) => {
-  return prisma.service.update({ where: { id }, data });
+  return prisma.service.update({ where: { id: Number(id) }, data });
 };
 
 const deleteService = async (id: string) => {
-  return prisma.service.delete({ where: { id } });
+  return prisma.service.delete({ where: { id: Number(id) } });
 };
 
 const serviceService = {

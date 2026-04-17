@@ -1,7 +1,7 @@
 model MedicineObservation {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
-  medicineId       String?  @db.ObjectId // Optional, in case it's a completely new generic
+  medicineId Int?   // Optional, in case it's a completely new generic
   masterMedicine   MasterMedicine? @relation(fields: [medicineId], references: [id])
 
   genericName      String   // To link even if medicineId is unknown
@@ -16,7 +16,7 @@ model MedicineObservation {
   conflict         Boolean  @default(false)
   needsReview      Boolean  @default(false)
 
-  businessBranchId String?  @db.ObjectId
+  businessBranchId String?  
 
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

@@ -1,5 +1,5 @@
 model BusinessUnit {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name     String
   type     String
@@ -12,17 +12,17 @@ model BusinessUnit {
   updatedAt            DateTime                     @updatedAt
   availableServices    BusinessUnitsToServices[]
   availableDepartments BusinessUnitsToDepartments[]
-  reportId             String?                      @db.ObjectId
+  reportId             String?                      
   Report               Report[]
 
   @@map("business_units")
 }
 
 model BusinessUnitsToServices {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
-  businessUnitId String @db.ObjectId
-  serviceId      String @db.ObjectId
+  businessUnitId Int 
+  serviceId Int 
 
   businessUnit BusinessUnit @relation(fields: [businessUnitId], references: [id])
   service      Service      @relation(fields: [serviceId], references: [id])
@@ -31,10 +31,10 @@ model BusinessUnitsToServices {
 }
 
 model BusinessUnitsToDepartments {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
-  businessUnitId String @db.ObjectId
-  departmentId   String @db.ObjectId
+  businessUnitId Int 
+  departmentId Int 
 
   businessUnit BusinessUnit @relation(fields: [businessUnitId], references: [id])
   department   Department   @relation(fields: [departmentId], references: [id])

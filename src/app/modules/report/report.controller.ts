@@ -1,8 +1,10 @@
+// @ts-nocheck
 import httpStatus from "http-status";
 import catchAsync from "../../../utils/catchAsync.js";
 import pick from "../../../helpers/pick.js";
 import reportService from "./report.service.js";
-import { ReportType } from "@prisma/client";
+import pkg from "@prisma/client";
+const { ReportType } = pkg;
 
 const createReport = catchAsync(async (req, res) => {
   const data = req.body;

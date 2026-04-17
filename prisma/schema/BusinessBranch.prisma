@@ -1,7 +1,7 @@
 model BusinessBranch {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
-  businessUnitId         String                    @db.ObjectId
+  businessUnitId Int                    
   name                   String
   type                   String
   practice               String
@@ -42,9 +42,9 @@ model BusinessBranch {
 }
 
 model ServicesToBranches {
-  id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  serviceId      String         @db.ObjectId
-  branchId       String         @db.ObjectId
+  id Int @id @default(autoincrement())
+  serviceId Int         
+  branchId Int         
   basePrice      Int
   active         Boolean        @default(true)
   serviceDetails Service        @relation(fields: [serviceId], references: [id])
@@ -58,9 +58,9 @@ model ServicesToBranches {
 }
 
 model DepartmentsToBranches {
-  id                String         @id @default(auto()) @map("_id") @db.ObjectId
-  departmentId      String         @db.ObjectId
-  branchId          String         @db.ObjectId
+  id Int @id @default(autoincrement())
+  departmentId Int         
+  branchId Int         
   active            Boolean        @default(true)
   departmentDetails Department     @relation(fields: [departmentId], references: [id])
   branchDetails     BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
@@ -73,9 +73,9 @@ model DepartmentsToBranches {
 }
 
 model BranchesToAnimalClasses {
-  id                 String         @id @default(auto()) @map("_id") @db.ObjectId
-  branchId           String         @db.ObjectId
-  animalClassId      String?        @db.ObjectId
+  id Int @id @default(autoincrement())
+  branchId Int         
+  animalClassId Int?        
   branchDetails      BusinessBranch @relation(fields: [branchId], references: [id], onDelete: Cascade)
   animalClassDetails AnimalClass?   @relation(fields: [animalClassId], references: [id], onDelete: SetNull)
   active             Boolean        @default(true)

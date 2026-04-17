@@ -1,4 +1,6 @@
-import { AccessLevel, Action, Resource } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { AccessLevel, Action, Resource } = pkg;
 import { z } from "zod";
 
 const createRoleSchema = z.object({

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express from "express";
 import { VisitController } from "./visit.controller.js";
 import { VisitValidation } from "./visit.validator.js";

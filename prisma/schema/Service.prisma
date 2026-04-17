@@ -1,12 +1,12 @@
 model Service {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   name         String
   description  String?
   duration     Int?
   price        Float?
   isCustom     Boolean  @default(false)
-  branchId     String?  @db.ObjectId
-  departmentId String   @db.ObjectId
+  branchId     String?  
+  departmentId Int   
 
   department   Department @relation(fields: [departmentId], references: [id])
   roomServices RoomService[]

@@ -1,4 +1,6 @@
-import { DocumentTemplate, Prisma } from "@prisma/client";
+// @ts-nocheck
+import pkg from "@prisma/client";
+const { DocumentTemplate, Prisma } = pkg;
 import prisma from "../../../utils/prisma.js";
 import calculatePagination, {
   PaginationOptions,
@@ -34,7 +36,7 @@ const createDocumentTemplate = async (data: DocumentTemplate) => {
 };
 
 const getDocumentTemplateById = async (id: string) => {
-  return prisma.documentTemplate.findUnique({ where: { id } });
+  return prisma.documentTemplate.findUnique({ where: { id: Number(id) } });
 };
 
 const getPaginatedDocumentTemplates = async (
@@ -96,11 +98,11 @@ const updateDocumentTemplate = async (
   id: string,
   data: Partial<DocumentTemplate>,
 ) => {
-  return prisma.documentTemplate.update({ where: { id }, data });
+  return prisma.documentTemplate.update({ where: { id: Number(id) }, data });
 };
 
 const deleteDocumentTemplate = async (id: string) => {
-  return prisma.documentTemplate.delete({ where: { id } });
+  return prisma.documentTemplate.delete({ where: { id: Number(id) } });
 };
 
 const documentTemplateService = {

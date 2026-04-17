@@ -15,16 +15,16 @@ enum ReportFrequency {
 }
 
 model Report {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name                 String
   type                 ReportType
   fields               String[]
   generateInBackground Boolean
   frequency            ReportFrequency?
-  businessBranchId     String?          @db.ObjectId
+  businessBranchId Int?          
   businessBranch       BusinessBranch?  @relation(fields: [businessBranchId], references: [id])
-  businessUnitId       String?          @db.ObjectId
+  businessUnitId Int?          
   businessUnit         BusinessUnit?    @relation(fields: [businessUnitId], references: [id])
 
   active    Boolean  @default(true)

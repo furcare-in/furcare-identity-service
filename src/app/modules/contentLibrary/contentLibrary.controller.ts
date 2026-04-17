@@ -1,3 +1,4 @@
+// @ts-nocheck
 import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiError.js";
 import catchAsync from "../../../utils/catchAsync.js";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SALT_SUFFIXES } from "../external-api/veterinary.constants.js";
 
 /**

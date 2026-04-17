@@ -1,12 +1,12 @@
 model WhatsAppConversation {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
   customerPhone   String   // E.164 format, e.g. "919876543210"
   customerName    String?
   lastMessage     String?
   lastMessageTime DateTime?
   unreadCount     Int      @default(0)
 
-  businessBranchId String? @db.ObjectId
+  businessBranchId String? 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

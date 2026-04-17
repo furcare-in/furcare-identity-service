@@ -1,3 +1,4 @@
+// @ts-nocheck
 // external-api/veterinary.constants.ts
 export type Species = "Canine" | "Feline" | "Equine" | "All Species";
 

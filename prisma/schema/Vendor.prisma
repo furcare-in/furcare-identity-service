@@ -1,8 +1,8 @@
 model Vendor {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   name           String
-  businessUnitId String       @db.ObjectId
+  businessUnitId Int       
   businessUnit   BusinessUnit @relation(fields: [businessUnitId], references: [id])
   items          Item[]
 

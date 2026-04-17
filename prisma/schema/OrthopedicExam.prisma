@@ -1,9 +1,9 @@
 model OrthopedicExam {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id Int @id @default(autoincrement())
 
   // ─── Links ───
-  visitId String @db.ObjectId
-  petId   String @db.ObjectId
+  visitId String 
+  petId   String 
 
   // ─── Orthopedic Exam Data ───
   physical    Json? // Distribution map, Joint exam, Gait, etc.
@@ -11,7 +11,7 @@ model OrthopedicExam {
   plan        Json? // Ortho-specific plan notes
 
   // ─── Metadata ───
-  businessBranchId String   @db.ObjectId
+  businessBranchId String   
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 

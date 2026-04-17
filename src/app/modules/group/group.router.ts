@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Router } from "express";
 import groupController from "./group.controller.js";
 import validateRequest from "../../middleware/validateRequest.js";

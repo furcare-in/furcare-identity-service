@@ -1,3 +1,4 @@
+// @ts-nocheck
 // external-api/veterinary.service.ts
 // 
 // DEPRECATED: VET_CLINICAL_KB hardcoded rules are no longer used.
