@@ -46,11 +46,20 @@ const getPaginatedRoles = async (
   // exact match
   if (Object.keys(filterData).length > 0) {
     conditions.push({
-      AND: Object.keys(filterData).map((key) => ({
-        [key]: {
-          equals: filterData[key as keyof typeof filterData],
-        },
-      })),
+      AND: Object.keys(filterData)
+        .filter((key) => filterData[key as keyof typeof filterData] !== undefined)
+        .map((key) => {
+          let value = filterData[key as keyof typeof filterData];
+          if (value === "null") value = null;
+          if (["id", "businessUnitId", "businessBranchId"].includes(key) && value !== null) {
+            value = Number(value);
+          }
+          return {
+            [key]: {
+              equals: value,
+            },
+          };
+        }),
     });
   }
 
