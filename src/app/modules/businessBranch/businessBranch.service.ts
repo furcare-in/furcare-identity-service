@@ -141,11 +141,23 @@ const getPaginatedBusinessBranchs = async (
   // exact match
   if (Object.keys(filterData).length > 0) {
     conditions.push({
-      AND: Object.keys(filterData).map((key) => ({
-        [key]: {
-          equals: filterData[key as keyof typeof filterData],
-        },
-      })),
+      AND: Object.keys(filterData).map((key) => {
+        let value = filterData[key as keyof typeof filterData];
+        
+        // Handle string "null" from frontend
+        if (value === "null") value = null;
+        
+        // Cast to Number for known Int fields (foreign keys)
+        if (["id", "businessUnitId", "businessBranchId"].includes(key) && value !== null) {
+          value = Number(value);
+        }
+
+        return {
+          [key]: {
+            equals: value,
+          },
+        };
+      }),
     });
   }
 
