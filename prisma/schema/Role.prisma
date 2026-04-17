@@ -23,7 +23,7 @@ model Role {
   id Int @id @default(autoincrement())
 
   name        String
-  permissions Json[]
+  permissions      Json              @default("[]")
 
   businessUnitId Int          
   businessUnit     BusinessUnit    @relation(fields: [businessUnitId], references: [id])

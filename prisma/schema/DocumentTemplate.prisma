@@ -19,7 +19,7 @@ model DocumentTemplate {
 
   type             DocumentTemplateType
   name             String
-  body             Json[]
+  body             Json              @default("[]")
   businessBranchId Int                 
   active           Boolean                @default(true)
 
