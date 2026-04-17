@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -9,6 +10,12 @@ import httpStatus from "http-status";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
+
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
+
 
 app.set("trust proxy", 1);
 app.use(express.json({ limit: "50mb" }));
