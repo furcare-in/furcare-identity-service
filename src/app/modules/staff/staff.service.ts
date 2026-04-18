@@ -64,18 +64,21 @@ const getPaginatedStaffs = async (
 
   // Filter by branch using junction table
   if (businessBranchId) {
-    conditions.push({
-      OR: [
-        {
-          branches: {
-            some: {
-              branchId: businessBranchId,
+    const branchIdNum = Number(businessBranchId);
+    if (!isNaN(branchIdNum)) {
+      conditions.push({
+        OR: [
+          {
+            branches: {
+              some: {
+                branchId: branchIdNum,
+              },
             },
           },
-        },
-        { businessBranchId },
-      ],
-    });
+          { businessBranchId: branchIdNum },
+        ],
+      });
+    }
   }
 
   // exact match for other fields
@@ -192,18 +195,21 @@ const getDoctors = async (businessBranchId?: string) => {
   };
 
   if (businessBranchId) {
-    whereCondition.OR = [
-      {
-        branches: {
-          some: {
-            branchId: businessBranchId,
+    const branchIdNum = Number(businessBranchId);
+    if (!isNaN(branchIdNum)) {
+      whereCondition.OR = [
+        {
+          branches: {
+            some: {
+              branchId: branchIdNum,
+            },
           },
         },
-      },
-      {
-        businessBranchId,
-      },
-    ];
+        {
+          businessBranchId: branchIdNum,
+        },
+      ];
+    }
   }
 
   const result = await prisma.staff.findMany({
