@@ -150,11 +150,14 @@ const getPaginatedBusinessBranchs = async (
         if (value === "null") value = null;
         
         // Cast to Number for known Int fields (foreign keys)
-        if (["id", "businessUnitId", "businessBranchId"].includes(key) && value !== null) {
+        if (["id", "businessUnitId", "businessBranchId"].includes(key)) {
+          if (value === null) {
+            // For REQUIRED Int fields, we cannot filter by null or Prisma throws "Argument equals is missing"
+            // businessBranch.businessUnitId is REQUIRED.
+            return undefined as any;
+          }
           const numValue = Number(value);
           if (isNaN(numValue)) {
-            // If it's a legacy MongoDB ID string, we can't filter by it perfectly yet.
-            // Returning the condition as undefined so it gets ignored by the filter.
             return undefined as any;
           }
           value = numValue;

@@ -87,7 +87,10 @@ const getPaginatedStaffs = async (
           let value = filterData[key as keyof typeof filterData];
           if (value === "null") value = null;
           
-          if (["id", "businessUnitId", "businessBranchId"].includes(key) && value !== null) {
+          if (["id", "businessUnitId", "businessBranchId"].includes(key)) {
+            if (value === null) {
+              return undefined as any;
+            }
             const numValue = Number(value);
             if (isNaN(numValue)) {
               return undefined as any;

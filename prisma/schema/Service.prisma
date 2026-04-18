@@ -6,9 +6,9 @@ model Service {
   price        Float?
   isCustom     Boolean  @default(false)
   branchId     String?  
-  departmentId Int   
+  departmentId Int?   
 
-  department   Department @relation(fields: [departmentId], references: [id])
+  department   Department? @relation(fields: [departmentId], references: [id])
   roomServices RoomService[]
 
   availableAtBranches ServicesToBranches[]
