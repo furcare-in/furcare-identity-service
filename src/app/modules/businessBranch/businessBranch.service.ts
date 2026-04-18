@@ -151,7 +151,13 @@ const getPaginatedBusinessBranchs = async (
         
         // Cast to Number for known Int fields (foreign keys)
         if (["id", "businessUnitId", "businessBranchId"].includes(key) && value !== null) {
-          value = Number(value);
+          const numValue = Number(value);
+          if (isNaN(numValue)) {
+            // If it's a legacy MongoDB ID string, we can't filter by it perfectly yet.
+            // Returning the condition as undefined so it gets ignored by the filter.
+            return undefined as any;
+          }
+          value = numValue;
         }
 
         return {
@@ -159,7 +165,8 @@ const getPaginatedBusinessBranchs = async (
             equals: value,
           },
         };
-      }),
+      })
+      .filter((condition) => condition !== undefined),
     });
   }
 

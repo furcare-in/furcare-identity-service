@@ -51,15 +51,22 @@ const getPaginatedRoles = async (
         .map((key) => {
           let value = filterData[key as keyof typeof filterData];
           if (value === "null") value = null;
+          
           if (["id", "businessUnitId", "businessBranchId"].includes(key) && value !== null) {
-            value = Number(value);
+            const numValue = Number(value);
+            if (isNaN(numValue)) {
+              return undefined as any;
+            }
+            value = numValue;
           }
+
           return {
             [key]: {
               equals: value,
             },
           };
-        }),
+        })
+        .filter((condition) => condition !== undefined),
     });
   }
 
